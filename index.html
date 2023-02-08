@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    table {
+        width: 80%;
+        margin: 50px auto;
+        text-align: center;
+        border-collapse: collapse;
+    }
+
+    table,
+    tr,
+    td,
+    th {
+        border: 1px solid #dddccc;
+    }
+</style>
+
+<body>
+    <table>
+        <thead>
+            <th>Name</th>
+            <th>Hair Color</th>
+            <th>Height</th>
+            <th>Planet Name</th>
+            <th>Planet population</th>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
+</body>
+<script>
+    const tbody = document.querySelector("#tbody");
+    async function get10People() {
+        //?page=1
+        const res = await fetch("https://swapi.dev/api/people")
+        const data = await res.json();
+        let output = "";
+         data.results.forEach(element => {
+            debugger
+            fetch(element.homeworld).then((res) => (res.json())).then(d => tbody.innerHTML += `<tr>
+                        <td>${element.name}</td>
+                        <td>${element.hair_color}</td>
+                        <td>${element.height}</td>
+                        <td>${d.name}</td>
+                        <td>${d.population}</td>
+                       </tr>`
+                       );
+            // console.log(Planet)
+
+        });
+        debugger;
+        // tbody.innerHTML = output;
+        console.log(data)
+    }
+    get10People()
+</script>
+
+</html>
